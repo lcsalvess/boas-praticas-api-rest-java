@@ -1,6 +1,6 @@
-package br.com.alura.adopet.api.validations;
+package br.com.alura.adopet.api.validations.adocao;
 
-import br.com.alura.adopet.api.dto.SolicitacaoAdocaoDto;
+import br.com.alura.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.exception.ValidacaoExpection;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import br.com.alura.adopet.api.repository.AdocaoRepository;
