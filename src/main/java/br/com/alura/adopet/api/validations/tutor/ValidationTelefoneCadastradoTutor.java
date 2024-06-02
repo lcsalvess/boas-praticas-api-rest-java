@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidationEmailCadastrado implements ValidationCadastroTutor{
+public class ValidationTelefoneCadastradoTutor implements ValidationCadastroTutor {
     @Autowired
     private TutorRepository repository;
 
     public void validar (CadastroTutorDto dto) {
-        boolean emailJaCadastrado = repository.existsByEmail(dto.email());
-        if (emailJaCadastrado) {
-            throw new ValidacaoExpection("E-mail já cadastrado para outro tutor!");
+        boolean telefoneJaCadastrado = repository.existsByTelefone(dto.telefone());
+        if (telefoneJaCadastrado) {
+            throw new ValidacaoExpection("Telefone já cadastrado para outro tutor!");
         }
     }
 
