@@ -13,7 +13,7 @@ class CalculadoraProbabilidadeAdocaoTest {
 
     @Test
     void cenario01() {
-        //idade 1 anos e 3kg - ALTA
+        //idade 1 anos e peso 3kg - ALTA
         Pet pet =
                 new Pet(
                         new PetDtoCadastro(
@@ -34,5 +34,30 @@ class CalculadoraProbabilidadeAdocaoTest {
         ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidade);
+    }
+
+    @Test
+    void cenario02() {
+        //idade 11 anos e peso 16kg - BAIXA
+        Pet pet =
+                new Pet(
+                        new PetDtoCadastro(
+                                TipoPet.CACHORRO,
+                                "THOR",
+                                "SRD",
+                                11,
+                                "preto",
+                                16.0f
+                        ),
+                        new Abrigo(
+                                new AbrigoDtoCadastro(
+                                        "Abrigo Chico Xavier",
+                                        "11999999999",
+                                        "comercial@abrigocxavier.com"
+                                )));
+        var calculadora = new CalculadoraProbabilidadeAdocao();
+        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
+
+        Assertions.assertEquals(ProbabilidadeAdocao.BAIXA, probabilidade);
     }
 }
