@@ -37,7 +37,7 @@ public class CalculadoraProbabilidadeAdocao {
         if (idade >= 15) {
             nota -= 5;
         }
-        if (idade >= 10) {
+        else if (idade >= 10) {
             nota -= 4;
         }
         return nota;

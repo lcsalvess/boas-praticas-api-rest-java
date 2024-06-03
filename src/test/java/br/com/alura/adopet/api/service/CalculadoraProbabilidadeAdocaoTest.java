@@ -60,4 +60,29 @@ class CalculadoraProbabilidadeAdocaoTest {
 
         Assertions.assertEquals(ProbabilidadeAdocao.BAIXA, probabilidade);
     }
+
+    @Test
+    void cenario03() {
+        //idade 11 anos e peso 4.5kg - MEDIA
+        Pet pet =
+                new Pet(
+                        new PetDtoCadastro(
+                                TipoPet.GATO,
+                                "PANDORA",
+                                "SRD",
+                                11,
+                                "preto",
+                                4.5f
+                        ),
+                        new Abrigo(
+                                new AbrigoDtoCadastro(
+                                        "Abrigo Chico Xavier",
+                                        "11999999999",
+                                        "comercial@abrigocxavier.com"
+                                )));
+        var calculadora = new CalculadoraProbabilidadeAdocao();
+        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
+
+        Assertions.assertEquals(ProbabilidadeAdocao.MEDIA, probabilidade);
+    }
 }
