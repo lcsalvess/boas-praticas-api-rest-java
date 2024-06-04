@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class CalculadoraProbabilidadeAdocaoTest {
 
     @Test
-    void cenario01() {
+    void deveriaRetornarProbabilidadeAltaParaPetComPesoBaixoEIdadeBaixa() {
         //idade 1 anos e peso 3kg - ALTA
         Pet pet =
                 new Pet(
@@ -37,7 +37,7 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    void cenario02() {
+    void deveriaRetornarProbabilidadeBaixaParaPetComPesoAltoEIdadeAvancada() {
         //idade 11 anos e peso 16kg - BAIXA
         Pet pet =
                 new Pet(
@@ -62,7 +62,7 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    void cenario03() {
+    void deveriaRetornarProbabilidadeAltaParaPetComPesoBaixoEIdadeAvancada () {
         //idade 11 anos e peso 4.5kg - MEDIA
         Pet pet =
                 new Pet(
