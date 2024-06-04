@@ -15,19 +15,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.awaitility.Awaitility.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.then;
 
 @ExtendWith(MockitoExtension.class)
 class AdocaoServiceTest {
     @InjectMocks
     private AdocaoService adocaoService;
+    @Spy
+    private List<ValidationSolicitacaoAdocao> validation = new ArrayList<>();
     @Mock
-    private List<ValidationSolicitacaoAdocao> validation;
+    private ValidationSolicitacaoAdocao validador1;
+    @Mock
+    private ValidationSolicitacaoAdocao validador2;
     @Mock
     private AdocaoRepository repository;
     @Mock
@@ -64,5 +67,21 @@ class AdocaoServiceTest {
         assertEquals(pet, adocaoSalva.getPet());
         assertEquals(tutor, adocaoSalva.getTutor());
         assertEquals(dto.motivo(), adocaoSalva.getMotivo());
+    }
+
+    @Test
+    void deveriaChamarValidadoresDeAdocaoAoSolicitar(){
+        //ARRANGE
+        this.dto = new SolicitacaoAdocaoDto(10L, 20L, "motivo qualquer");
+        BDDMockito.given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
+        BDDMockito.given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
+        BDDMockito.given(pet.getAbrigo()).willReturn(abrigo);
+        validation.add(validador1);
+        validation.add(validador2);
+        //ACT
+        adocaoService.solicitar(dto);
+        //ASSERT
+        BDDMockito.then(validador1).should().validar(dto);
+        BDDMockito.then(validador2).should().validar(dto);
     }
 }
