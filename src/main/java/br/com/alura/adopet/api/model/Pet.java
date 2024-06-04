@@ -1,7 +1,6 @@
 package br.com.alura.adopet.api.model;
 
 import br.com.alura.adopet.api.dto.pet.PetDtoCadastro;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -29,13 +28,10 @@ public class Pet {
 
     private Boolean adotado;
 
-    @ManyToOne
-    @JsonBackReference("abrigo_pets")
-    @JoinColumn(name = "abrigo_id")
+    @ManyToOne (fetch = FetchType.LAZY)
     private Abrigo abrigo;
 
-    @OneToOne(mappedBy = "pet")
-    @JsonBackReference("adocao_pets")
+    @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
     private Adocao adocao;
 
     @Override

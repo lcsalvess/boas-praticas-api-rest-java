@@ -7,13 +7,17 @@ import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.model.ProbabilidadeAdocao;
 import br.com.alura.adopet.api.model.TipoPet;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class CalculadoraProbabilidadeAdocaoTest {
 
     @Test
-    void deveriaRetornarProbabilidadeAltaParaPetComPesoBaixoEIdadeBaixa() {
+    @DisplayName("Probabilidade alta para pet com peso e idade baixa")
+    void probabilidadeCenario1() {
         //idade 1 anos e peso 3kg - ALTA
+        //TRIPLE A (ARRANGE - ACT - ASSERT
+        //ARRANGE
         Pet pet =
                 new Pet(
                         new PetDtoCadastro(
@@ -31,8 +35,10 @@ class CalculadoraProbabilidadeAdocaoTest {
                                         "comercial@abrigocxavier.com"
                                 )));
         var calculadora = new CalculadoraProbabilidadeAdocao();
-        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
 
+        //ACT
+        ProbabilidadeAdocao probabilidade = calculadora.calcular(pet);
+        //ASSERT
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidade);
     }
 
