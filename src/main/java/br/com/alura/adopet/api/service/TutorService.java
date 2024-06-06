@@ -21,7 +21,7 @@ public class TutorService {
     public void cadastrar(CadastroTutorDto dto) {
         validation.forEach(v -> v.validar(dto));
 
-        var tutor = new Tutor(dto.nome(), dto.telefone(), dto.email());
+        var tutor = new Tutor(dto);
         repository.save(tutor);
     }
 

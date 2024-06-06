@@ -10,6 +10,7 @@ import br.com.alura.adopet.api.repository.PetRepository;
 import br.com.alura.adopet.api.repository.TutorRepository;
 import br.com.alura.adopet.api.service.email.EmailService;
 import br.com.alura.adopet.api.validations.adocao.ValidationSolicitacaoAdocao;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -55,9 +56,17 @@ class AdocaoServiceTest {
     void deveriaSalvarAdocaoAoSolicitar(){
         //ARRANGE
         this.dto = new SolicitacaoAdocaoDto(10L, 20L, "motivo qualquer");
-        BDDMockito.given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
-        BDDMockito.given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
-        BDDMockito.given(pet.getAbrigo()).willReturn(abrigo);
+        BDDMockito
+                .given(petRepository
+                        .getReferenceById(dto.idPet()))
+                .willReturn(pet);
+        BDDMockito
+                .given(tutorRepository
+                        .getReferenceById(dto.idTutor()))
+                .willReturn(tutor);
+        BDDMockito
+                .given(pet.getAbrigo())
+                .willReturn(abrigo);
 
         //ACT
         adocaoService.solicitar(dto);
@@ -73,9 +82,19 @@ class AdocaoServiceTest {
     void deveriaChamarValidadoresDeAdocaoAoSolicitar(){
         //ARRANGE
         this.dto = new SolicitacaoAdocaoDto(10L, 20L, "motivo qualquer");
-        BDDMockito.given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
-        BDDMockito.given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
-        BDDMockito.given(pet.getAbrigo()).willReturn(abrigo);
+        // Behavior-Driven-Deelopment(BDD)
+        // Quando o método for chamado com o valor retornado pelo dto,
+        // o Mockito irá retornar o objeto pet.
+        BDDMockito
+                .given(petRepository
+                        .getReferenceById(dto.idPet()))
+                .willReturn(pet);
+        BDDMockito
+                .given(tutorRepository
+                        .getReferenceById(dto.idTutor()))
+                .willReturn(tutor);
+        BDDMockito.given(pet.getAbrigo())
+                .willReturn(abrigo);
         validation.add(validador1);
         validation.add(validador2);
         //ACT

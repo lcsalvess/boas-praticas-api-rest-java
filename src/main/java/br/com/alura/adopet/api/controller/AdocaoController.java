@@ -28,6 +28,7 @@ public class AdocaoController {
         }
     }
 
+
     @PutMapping("/aprovar")
     @Transactional
     public ResponseEntity<String> aprovar(@RequestBody @Valid AprovacaoAdocaoDto dto) {

@@ -43,7 +43,8 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    void deveriaRetornarProbabilidadeBaixaParaPetComPesoAltoEIdadeAvancada() {
+    @DisplayName("Probabilidade baixa para pet com peso alto e idade avançada")
+    void probabilidadeCenario2() {
         //idade 11 anos e peso 16kg - BAIXA
         Pet pet =
                 new Pet(
@@ -68,7 +69,8 @@ class CalculadoraProbabilidadeAdocaoTest {
     }
 
     @Test
-    void deveriaRetornarProbabilidadeAltaParaPetComPesoBaixoEIdadeAvancada () {
+    @DisplayName("Probabilidade média para pet com peso baixo e idade avançada")
+    void probabilidadeCenario3 () {
         //idade 11 anos e peso 4.5kg - MEDIA
         Pet pet =
                 new Pet(
