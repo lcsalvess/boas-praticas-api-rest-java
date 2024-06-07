@@ -1,4 +1,4 @@
-package br.com.alura.adopet.api.validations.adocao;
+package br.com.alura.adopet.api.validations;
 
 import br.com.alura.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.exception.ValidacaoExpection;
@@ -9,12 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ValidationPetDisponivel implements ValidationSolicitacaoAdocao {
-    @Autowired
-    private PetRepository petRepository;
+   @Autowired
+   private PetRepository petRepository;
+
     public void validar(SolicitacaoAdocaoDto dto) {
         Pet pet = petRepository.getReferenceById(dto.idPet());
         if (pet.getAdotado()) {
             throw new ValidacaoExpection("Pet já foi adotado!");
         }
+
     }
 }

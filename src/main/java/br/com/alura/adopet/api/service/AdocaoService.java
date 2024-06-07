@@ -10,7 +10,7 @@ import br.com.alura.adopet.api.repository.AdocaoRepository;
 import br.com.alura.adopet.api.repository.PetRepository;
 import br.com.alura.adopet.api.repository.TutorRepository;
 import br.com.alura.adopet.api.service.email.EmailService;
-import br.com.alura.adopet.api.validations.adocao.ValidationSolicitacaoAdocao;
+import br.com.alura.adopet.api.validations.ValidationSolicitacaoAdocao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,6 @@ public class AdocaoService {
     public void aprovar(AprovacaoAdocaoDto dto) {
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
         adocao.statusAprovado();
-//        repository.save(adocao);
 
         emailService.enviarEmail(
                 adocao.getTutor().getEmail(),
@@ -69,7 +68,6 @@ public class AdocaoService {
     public void reprovar(ReprovacaoAdocaoDto dto) {
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
         adocao.statusReprovado(dto.justificativa());
-//        repository.save(adocao);
 
         emailService.enviarEmail(
                 adocao.getTutor().getEmail(),

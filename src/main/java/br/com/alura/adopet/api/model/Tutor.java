@@ -2,7 +2,6 @@ package br.com.alura.adopet.api.model;
 
 import br.com.alura.adopet.api.dto.tutor.AtualizacaoTutorDto;
 import br.com.alura.adopet.api.dto.tutor.CadastroTutorDto;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class Tutor {
     private String email;
 
     @OneToMany(mappedBy = "tutor")
-    @JsonManagedReference("tutor_adocoes")
     private List<Adocao> adocoes;
 
     public Tutor () {}
@@ -59,39 +57,19 @@ public class Tutor {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public List<Adocao> getAdocoes() {
         return adocoes;
-    }
-
-    public void setAdocoes(List<Adocao> adocoes) {
-        this.adocoes = adocoes;
     }
 }

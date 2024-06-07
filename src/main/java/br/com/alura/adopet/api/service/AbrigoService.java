@@ -7,7 +7,6 @@ import br.com.alura.adopet.api.exception.ValidacaoExpection;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.repository.AbrigoRepository;
 import br.com.alura.adopet.api.repository.PetRepository;
-import br.com.alura.adopet.api.validations.abrigo.ValidationCadastroAbrigo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,6 @@ import java.util.Optional;
 public class AbrigoService {
     @Autowired
     private AbrigoRepository abrigoRepository;
-    @Autowired
-    private List<ValidationCadastroAbrigo> validation;
     @Autowired
     private PetRepository petRepository;
 
@@ -32,9 +29,11 @@ public class AbrigoService {
     }
 
     public void cadastrar(AbrigoDtoCadastro dto) {
-        validation.forEach(v -> v.validar(dto));
-        var abrigo = new Abrigo(dto);
-        abrigoRepository.save(abrigo);
+        boolean jaCadastrado = abrigoRepository.existsByNomeOrTelefoneOrEmail(dto.nome(), dto.telefone(), dto.email());
+        if (jaCadastrado) {
+            throw new ValidacaoExpection("Dados já cadastrados para outro abrigo!");
+        }
+        abrigoRepository.save(new Abrigo(dto));
     }
 
     public List<PetDto> listarPetsPorAbrigo(String idOuNome) {

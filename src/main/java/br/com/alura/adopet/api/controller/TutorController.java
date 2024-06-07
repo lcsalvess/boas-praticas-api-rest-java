@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class TutorController {
 
     @Autowired
-    private TutorService tutorService;
+    private TutorService service;
 
 
     @PostMapping
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroTutorDto dto) {
         try {
-            tutorService.cadastrar(dto);
+            service.cadastrar(dto);
             return ResponseEntity.ok("Tutor cadastrado com sucesso!");
         } catch (ValidacaoExpection e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -33,7 +33,7 @@ public class TutorController {
     @Transactional
     public ResponseEntity<String> atualizar(@RequestBody @Valid AtualizacaoTutorDto dto) {
         try {
-            tutorService.atualizar(dto);
+            service.atualizar(dto);
             return ResponseEntity.ok().build();
         } catch (ValidacaoExpection expection) {
             return ResponseEntity.badRequest().body(expection.getMessage());

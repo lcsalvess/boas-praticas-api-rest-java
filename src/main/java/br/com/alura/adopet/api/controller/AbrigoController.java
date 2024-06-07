@@ -23,8 +23,6 @@ public class AbrigoController {
     @Autowired
     private AbrigoService service;
     @Autowired
-    private AbrigoService abrigoService;
-    @Autowired
     private PetService petService;
 
     @GetMapping
@@ -37,7 +35,7 @@ public class AbrigoController {
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestBody @Valid AbrigoDtoCadastro dto) {
         try {
-            this.service.cadastrar(dto);
+            service.cadastrar(dto);
             return ResponseEntity.ok("Abrigo cadastrado com sucesso!");
         } catch (ValidacaoExpection expection) {
             return ResponseEntity.badRequest().body(expection.getMessage());
@@ -58,7 +56,7 @@ public class AbrigoController {
     @Transactional
     public ResponseEntity<String> cadastrarPet(@PathVariable String idOuNome, @RequestBody @Valid PetDtoCadastro dto) {
         try {
-            Abrigo abrigo = abrigoService.carregarAbrigo(idOuNome);
+            Abrigo abrigo = service.carregarAbrigo(idOuNome);
             petService.cadastrarPet(abrigo, dto);
             return ResponseEntity.ok("Pet cadastrado com sucesso!");
         } catch (ValidacaoExpection exception) {

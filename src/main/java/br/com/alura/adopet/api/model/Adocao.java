@@ -68,6 +68,10 @@ public class Adocao {
         return pet;
     }
 
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
     public String getMotivo() {
         return motivo;
     }

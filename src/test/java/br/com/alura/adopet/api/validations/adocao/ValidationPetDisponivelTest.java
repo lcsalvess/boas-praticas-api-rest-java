@@ -4,6 +4,7 @@ package br.com.alura.adopet.api.validations.adocao;
 import br.com.alura.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.repository.PetRepository;
+import br.com.alura.adopet.api.validations.ValidationPetDisponivel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
