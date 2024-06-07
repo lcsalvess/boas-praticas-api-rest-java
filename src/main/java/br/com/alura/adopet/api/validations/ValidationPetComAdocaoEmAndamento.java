@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class ValidationPetComAdocaoEmAndamento implements  ValidationSolicitacaoAdocao {
     @Autowired
     private AdocaoRepository adocaoRepository;
+
     public void validar(SolicitacaoAdocaoDto dto) {
         boolean petTemAdocaoEmAndamento = adocaoRepository
                 .existsByPetIdAndStatus
