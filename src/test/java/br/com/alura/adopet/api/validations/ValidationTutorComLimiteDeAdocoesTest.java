@@ -1,11 +1,9 @@
-package br.com.alura.adopet.api.validations.adocao;
+package br.com.alura.adopet.api.validations;
 
 import br.com.alura.adopet.api.dto.adocao.SolicitacaoAdocaoDto;
 import br.com.alura.adopet.api.exception.ValidacaoExpection;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import br.com.alura.adopet.api.repository.AdocaoRepository;
-import br.com.alura.adopet.api.validations.ValidationPetComAdocaoEmAndamento;
-import br.com.alura.adopet.api.validations.ValidationTutorComAdocaoEmAndamento;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,33 +13,35 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
-class ValidationPetOutraSolicitacaoTest {
+class ValidationTutorComLimiteDeAdocoesTest {
     @InjectMocks
-    private ValidationPetComAdocaoEmAndamento validation;
+    private ValidationTutorComLimiteDeAdocoes validation;
+
     @Mock
-    private AdocaoRepository adocaoRepository;
+    private AdocaoRepository repository;
+
     @Mock
     private SolicitacaoAdocaoDto dto;
-    @Test
-    @DisplayName("NÃO PERMITIR solicitação de adoção com pet com outro pedido de adoção")
-    void cenario1() {
-        //ARRANGE
 
-        BDDMockito.given(adocaoRepository
-                .existsByPetIdAndStatus(dto.idPet(), StatusAdocao.AGUARDANDO_AVALIACAO))
-                .willReturn(true);
+    @Test
+    @DisplayName("Exception lançada tutor com  5 adoções aprovadas")
+    void cenario01() {
+        //ARRANGE
+        BDDMockito.given(repository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO))
+                .willReturn(5);
         //ACT + ASSERT
         Assertions.assertThrows(ValidacaoExpection.class, () -> validation.validar(dto));
     }
 
     @Test
-    @DisplayName("PERMITIR solicitação de adoção")
-    void cenario2() {
+    @DisplayName("NÃO LANÇA EXCEPTION pois tutor tem menos de 5 adoções aprovadas")
+    void cenario02() {
         //ARRANGE
-        BDDMockito.given(adocaoRepository
-                        .existsByPetIdAndStatus(dto.idPet(), StatusAdocao.AGUARDANDO_AVALIACAO))
-                .willReturn(false);
+        BDDMockito.given(repository.countByTutorIdAndStatus(dto.idTutor(), StatusAdocao.APROVADO))
+                .willReturn(3);
         //ACT + ASSERT
         Assertions.assertDoesNotThrow(() -> validation.validar(dto));
     }
